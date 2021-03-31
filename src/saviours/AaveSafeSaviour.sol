@@ -127,7 +127,9 @@ contract AeveSafeSaviour is SafeMath, SafeSaviourLike {
         collateralTokenCover[safeHandler] = add(collateralTokenCover[safeHandler], msg.value);
 
         uint256 beforeBalance = IERC20(aEth).balanceOf(address(this));
+        
         IWETHGateway(WETHGatewayContractAddressOFAAVE).depositETH{value: msg.value}(address(this), 0);
+        
         uint256 afterBalance = IERC20(aEth).balanceOf(address(this));
         
         require(beforeBalance < afterBalance, "GeneralTokenReserveSafeSaviour/could-not-transfer-collateralToken"); // new code
@@ -217,7 +219,7 @@ contract AeveSafeSaviour is SafeMath, SafeSaviourLike {
         // Mark the SAFE in the registry as just being saved
         saviourRegistry.markSave(collateralType, safeHandler);
 
-        IERC20(aEth).approve(WETHGatewayContractAddressOFAAVE, tokenAmountUsed);
+        IERC20(aEth).approve(WETHGatewayContractAddressOFAAVE, add(keeperPayout, tokenAmountUsed));
         IWETHGateway(WETHGatewayContractAddressOFAAVE).withdrawETH(tokenAmountUsed, address(this)); // Withdraw from AAVE (aETH => ETH)
         IWETH(collateralJoin.collateral()).deposit{value: add(keeperPayout, tokenAmountUsed)}(); // ETH -> WETH
 
