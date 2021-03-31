@@ -23,4 +23,5 @@ I have create a AAVE Safe Saviour contract. Where user can deposit ETH on AAVE a
 
 ## Kovan Deployed Contract Address
 
-https://kovan.etherscan.io/address/0xe7e887b9b623181e8b2bb57f81b2989fb0cd5216#code
+For AAVE Saviour
+https://kovan.etherscan.io/address/0x8774c700d008157d840f391cb80b5bb80a759b81#code
